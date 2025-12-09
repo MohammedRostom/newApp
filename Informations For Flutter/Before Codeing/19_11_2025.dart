@@ -1,0 +1,60 @@
+// """""""When you Set up New Feature """""""
+
+//  ----------------------------------
+//  DOMAIN LAYER
+//  ----------------------------------
+ // userEntity
+  //  --> Rebo(Abstraction) 
+                            // --------------------
+                            // DATA LAYER ( باقي التفاصيل معروفة )
+                            // --------------------
+                              // Rebo (Implements) (Locator Pased) انظر الكود 
+
+  //      ---> UseCaase (Call Abst Methods)
+   //          ---> Cubit   
+    //               ---> Ui    
+
+// --------------------------------------------------------------------------------------------
+
+// """Locator"""" الترتيب مهم
+// 1-  الربط بين    Aps , Impl
+   //  Sl.registerLazySinglton <Abs> ()=> Implemnt(Data:Sl()"مش لازم يبقي موجود")   Data:Sl() -=>  في حالة الترتيب الصيحيح  Data مسجل قبل كدا  == Orginsed Flow==
+
+// 2- Dependancy inverstion  (Aps, Impl, "Opj From Aps" Not Opj From Impl) , Class EX: DataS use Instance from  Aps
+  
+  //  -----------------------------
+  //  Data Class
+    // finl Aps aps;
+        // Data({requierd this.aps})
+  //  -----------------------------
+  
+  //  Sl.registerLazySinglton <DataS> ()=> DataS(abs:Sl()) 
+
+
+// """CUbit""""
+//  1-  Use (Create) not (Value) For "performance" ====> blocProvider
+// 
+      // BlocProvider(
+      //   create: (context) => Sl<Cubit>  ===== From locator ,
+      //   child: Container(),
+      // )
+
+//  2   Use  context.read<Cubit>()
+      // ---------------------------
+      // BlocBuilder<SubjectBloc, SubjectState>(
+      //   builder: (context, state) {
+        // $$$$$$$$$ final cubit =context.read<Cubit>();$$$$$$$
+
+
+      //     return Container();
+      //   },
+      // )
+      // --------------------------- 
+
+
+// =========== Chat GPT  to get Exmples =========
+// لو عايز، أقدر:
+// أرتّب لك الشرح ده بشكل احترافي.
+// أو أحولّه لشرح كامل بيوضح Clean Architecture + Cubit + GetIt.
+// أو أساعدك تعرف الطبقات بالضبط المفروض تكون إزاي.
+// تحب أرتّب الكلام وأشرحه لك؟

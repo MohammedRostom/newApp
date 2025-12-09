@@ -1,0 +1,19 @@
+
+"خطأ علي ال performance"
+index==2?💔 Conatiner(
+.
+.
+.
+):widget()  دي غلطت او مش غلطت بالظبط لكن حاول تبعد عنها 
+
+
+
+Conatiner(
+padding: index==2?Edgeinsets.all(8):null  ====> Proprity using ✔دي الافضل عشان الادأة يبقي عالي والوديجت موجودة لسا 
+.
+.
+.
+)
+
+
+"خد بالك من المبدا بتاع SOLID اخر واحد "
