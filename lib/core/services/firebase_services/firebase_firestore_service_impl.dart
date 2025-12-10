@@ -25,13 +25,15 @@ class FireStoreServiceImpl extends FireStoreServiceAbst {
   }
 
   Future<AuthUserModel?> getAuthUserFromFirestore({
+    required String uid,
     required String username,
     required String collectionName,
   }) async {
     try {
+      // seacrh by each Douments Not JsonDocuments//
       DocumentSnapshot doc = await FirebaseFirestore.instance
           .collection(collectionName)
-          .doc(username)
+          .doc(uid)
           .get();
       if (doc.exists) {
         AuthUserModel Model = AuthUserModel(

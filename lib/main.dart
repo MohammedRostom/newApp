@@ -13,6 +13,7 @@ void main() async {
   await LocatorApp.AuthInitcalling();
 
   FireStoreServiceImpl().getAuthUserFromFirestore(
+    uid: "yQFPTFkcMsdrwg1Mh1o6v7EfwNy1",
     username: "Moahmmed Ali d45",
     collectionName: Constant.CollectionUsers,
   );
