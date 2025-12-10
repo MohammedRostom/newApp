@@ -2,6 +2,7 @@ import 'package:auth_feature_1_0/features/auth_feature/domain/entitity/user_enti
 import 'package:auth_feature_1_0/features/auth_feature/domain/rebo_abs/rebo_abs.dart';
 
 abstract class UserUseCase {
+  // dependency injection
   final RepositoryAbs repositoryAbs;
   UserUseCase(this.repositoryAbs);
 
