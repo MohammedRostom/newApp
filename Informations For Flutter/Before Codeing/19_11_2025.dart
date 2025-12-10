@@ -52,6 +52,8 @@
       // --------------------------- 
 
 
+// add try cach for methods to avoid carch app With Ai Copilot==========
+
 // =========== Chat GPT  to get Exmples =========
 // لو عايز، أقدر:
 // أرتّب لك الشرح ده بشكل احترافي.

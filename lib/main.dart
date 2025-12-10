@@ -1,8 +1,6 @@
 import 'package:auth_feature_1_0/config/routes/app_routes.dart';
-import 'package:auth_feature_1_0/core/Constant.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
-import 'package:auth_feature_1_0/core/services/firebase_services/firebase_auth_service_impl.dart';
-import 'package:auth_feature_1_0/core/services/firebase_services/firebase_firestore_service_impl.dart';
+import 'package:auth_feature_1_0/features/auth_feature/Domain/rebo_abs/user_rebo_aps.dart';
 import 'package:auth_feature_1_0/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +10,13 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await LocatorApp.AuthInitcalling();
 
-  FireStoreServiceImpl().getAuthUserFromFirestore(
-    uid: "yQFPTFkcMsdrwg1Mh1o6v7EfwNy1",
-    username: "Moahmmed Ali d45",
-    collectionName: Constant.CollectionUsers,
+  final repo = LocatorApp.sl<RepositoryAbs>();
+  repo.registration(
+    "AboRustom40",
+    "AboRustom40@gmail.com",
+    "AboRustom40@gmail.com",
   );
+
   runApp(const MyApp());
 }
 
