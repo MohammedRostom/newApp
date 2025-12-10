@@ -15,14 +15,4 @@ class AuthUserEntity {
   String get email => _email;
   String get username => _username;
   //applay encapsualtion Done
-
-  // 🔥 تحويل الـ class إلى خريطة (Map)
-  Map<String, dynamic> FromModeltoMap() {
-    return {
-      "id": _id,
-      "email": _email,
-      "username": _username,
-      "createdAt": DateTime.now().toIso8601String(),
-    };
-  }
 }

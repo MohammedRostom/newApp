@@ -12,11 +12,12 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await LocatorApp.AuthInitcalling();
 
-  await FireStoreServiceImpl().addAuthUserToFirestore(
-    "Any",
-    "Anykjlk@gmail.com",
-    "Anykjlk@gmail.com",
-    Constant.CollectionUsers,
+  FirebaseAuthServiceImpl(
+    firebaseStore: FireStoreServiceImpl(),
+  ).signUpWithEmail(
+    username: "Moahmmed Ali 45",
+    email: "Moahmmed45@gmail.com",
+    password: "Moahmmed45@gmail.com",
   );
   runApp(const MyApp());
 }

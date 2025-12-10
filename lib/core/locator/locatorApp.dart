@@ -10,11 +10,11 @@ class LocatorApp {
   // AUTH SETUP
   // -----------------------------------------------------------
   static Future<void> setupSingltonAuth() async {
-    sl.registerLazySingleton<FirebaseAuthServiceAbst>(
-      () => FirebaseAuthServiceImpl(),
-    );
     sl.registerLazySingleton<FireStoreServiceAbst>(
       () => FireStoreServiceImpl(),
+    );
+    sl.registerLazySingleton<FirebaseAuthServiceAbst>(
+      () => FirebaseAuthServiceImpl(firebaseStore: sl()),
     );
   }
 
