@@ -1,4 +1,4 @@
-import 'package:auth_feature_1_0/core/Conenction/checkNet.dart';
+import 'package:auth_feature_1_0/core/Conenction/checNet.dart';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';

@@ -7,11 +7,6 @@ abstract class RepositoryAbs {
     String email,
     String password,
   );
-  // Future<Map<String, dynamic>> userDataFromRegistration(
-  //   String userId,
-  //   String username,
-  //   String email,
-  //   String password,
-  // );
+
   Future<void> logout();
 }
