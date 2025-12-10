@@ -3,8 +3,8 @@ import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_enti
 class AuthUserModel extends AuthUserEntity {
   AuthUserModel({
     required super.id,
-    required super.email,
     required super.username,
+    required super.email,
   });
 
   Map<String, dynamic> FromModeltoMap() {

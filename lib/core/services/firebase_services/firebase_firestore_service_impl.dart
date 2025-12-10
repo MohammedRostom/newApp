@@ -23,4 +23,30 @@ class FireStoreServiceImpl extends FireStoreServiceAbst {
     print("User Added Successfully!");
     return true;
   }
+
+  Future<AuthUserModel?> getAuthUserFromFirestore({
+    required String username,
+    required String collectionName,
+  }) async {
+    try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection(collectionName)
+          .doc(username)
+          .get();
+      if (doc.exists) {
+        AuthUserModel Model = AuthUserModel(
+          id: doc['id'],
+          username: doc['username'],
+          email: doc['email'],
+        );
+        print(Model.username);
+      } else {
+        print("User not found");
+        return null;
+      }
+    } catch (e) {
+      print("Error fetching user: $e");
+      return null;
+    }
+  }
 }
