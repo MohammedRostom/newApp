@@ -17,7 +17,7 @@ class AuthUserEntity {
   //applay encapsualtion Done
 
   // 🔥 تحويل الـ class إلى خريطة (Map)
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> FromModeltoMap() {
     return {
       "id": _id,
       "email": _email,
