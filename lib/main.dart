@@ -1,3 +1,4 @@
+import 'package:auth_feature_1_0/config/routes/app_routes.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:auth_feature_1_0/features/auth_feature/pressentation/view/loginscreen.dart';
 import 'package:auth_feature_1_0/firebase_options.dart';
@@ -17,6 +18,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginView());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: AppRoutes.MapOfViewsRouters,
+      initialRoute: AppRoutes.login,
+    );
   }
 }
