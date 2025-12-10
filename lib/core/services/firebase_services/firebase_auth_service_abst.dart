@@ -14,6 +14,5 @@ abstract class FirebaseAuthServiceAbst {
   // Future<User?> signInAnonymously();
 
   Future<void> signOut();
-
   // Future<void> deleteAccount();
 }

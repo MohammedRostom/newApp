@@ -14,6 +14,15 @@ class AuthUserEntity {
   String get id => _id;
   String get email => _email;
   String get username => _username;
-}
+  //applay encapsualtion Done
 
-//applay encapsualtion Done
+  // 🔥 تحويل الـ class إلى خريطة (Map)
+  Map<String, dynamic> toMap() {
+    return {
+      "id": _id,
+      "email": _email,
+      "username": _username,
+      "createdAt": DateTime.now().toIso8601String(),
+    };
+  }
+}

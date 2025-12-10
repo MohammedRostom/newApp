@@ -1,5 +1,5 @@
 import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_entity.dart';
-import 'package:auth_feature_1_0/features/auth_feature/domain/rebo_aps/rebo_abs.dart';
+import 'package:auth_feature_1_0/features/auth_feature/Domain/rebo_abs/rebo_aps.dart';
 
 abstract class UserUseCase {
   // dependency injection

@@ -6,10 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-  FirebaseAuthServiceImpl().signUpWithEmail(
-    email: "MohmmedAli@gmial.com",
-    password: "MohmmedAli@gmial.com",
-  );
   WidgetsFlutterBinding.ensureInitialized(); // لازم قبل أي async
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await LocatorApp.AuthInitcalling();
