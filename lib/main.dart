@@ -10,13 +10,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await LocatorApp.AuthInitcalling();
 
-  final repo = LocatorApp.sl<RepositoryAbs>();
-  repo.registration(
-    "AboRustom40",
-    "AboRustom40@gmail.com",
-    "AboRustom40@gmail.com",
-  );
-
   runApp(const MyApp());
 }
 

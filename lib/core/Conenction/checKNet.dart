@@ -8,15 +8,15 @@ class CheckConnection {
     try {
       final response = await http
           .get(Uri.parse('https://www.gstatic.com/generate_204'))
-          .timeout(const Duration(seconds: 3));
+          .timeout(const Duration(seconds: 4));
 
       if (response.statusCode == 204) {
-        return right(DoneNetok('الإنترنت شغال ✔️'));
+        return right(DoneNetok('الإنترنت شغال ✔️')); // نت شغال
       } else {
-        return left(FailureNetok('فيه شبكة بس مفيش إنترنت فعلي ❌'));
+        return left(FailureNetok('فيه شبكة بس مفيش إنترنت فعلي ❌')); // نت فاصل
       }
     } catch (_) {
-      return left(FailureNetok('مفيش إنترنت ❌'));
+      return left(FailureNetok('مفيش إنترنت ❌')); // نت فاصل
     }
   }
 }
