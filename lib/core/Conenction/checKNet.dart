@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class CheckConnection {
   /// بيرجع Right(true) لو النت شغال، Left(Failure) لو مفيش نت فعلي
-  Future<Either<FailureNetok, DoneNetok>> checkMethod() async {
+  Future<Either<FailureNetok, DoneNetok>> checkConnectionMethod() async {
     try {
       final response = await http
           .get(Uri.parse('https://www.gstatic.com/generate_204'))
@@ -17,6 +17,17 @@ class CheckConnection {
       }
     } catch (_) {
       return left(FailureNetok('مفيش إنترنت ❌')); // نت فاصل
+    }
+  }
+
+  Future<bool> CheckInternet() async {
+    {
+      final result = await checkConnectionMethod();
+      if (result.isRight()) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

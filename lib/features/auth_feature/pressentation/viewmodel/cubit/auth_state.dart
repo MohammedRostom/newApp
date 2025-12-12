@@ -12,7 +12,10 @@ final class AuthCHeckNet extends AuthState {
   AuthCHeckNet({required this.isHasInternet});
 }
 
-final class AuthDone extends AuthState {}
+final class AuthDone extends AuthState {
+  final AuthUserEntity? user;
+  AuthDone({this.user});
+}
 
 final class AuthError extends AuthState {
   final String errorMessage;

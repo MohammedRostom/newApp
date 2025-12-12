@@ -17,18 +17,16 @@ class LoginView extends StatelessWidget {
             builder: (context, state) {
               final authCubit = context.read<AuthCubit>();
 
-              final isConnected = state is AuthCHeckNet
-                  ? state.isHasInternet
-                  : false;
-
               return Column(
                 children: [
                   TextButton.icon(
-                    icon: state is AuthCHeckNet && state.isHasInternet == false
-                        ? Icon(Icons.wifi)
+                    icon: state is AuthCHeckNet
+                        ? state.isHasInternet
+                              ? Icon(Icons.wifi)
+                              : Icon(Icons.error)
                         : Icon(Icons.error),
                     label: Text(
-                      state is AuthCHeckNet && state.isHasInternet == false
+                      state is AuthCHeckNet && !state.isHasInternet
                           ? "No Internet"
                           : state is AuthInitial
                           ? "Test Net"
@@ -36,8 +34,7 @@ class LoginView extends StatelessWidget {
                           ? "Logged In"
                           : "Good Internet",
                     ),
-                    onPressed: () =>
-                        _onLoginButtonPressed(authCubit, isConnected, context),
+                    onPressed: () => _onLoginButtonPressed(authCubit, context),
                   ),
                   Text(
                     state is AuthCHeckNet && state.isHasInternet == false
@@ -57,18 +54,18 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  _onLoginButtonPressed(AuthCubit authCubit, isConnected, context) async {
+  _onLoginButtonPressed(AuthCubit authCubit, context) async {
     await authCubit.loginUser('aborustom40@gmail.com', 'aborustom40@gmail.com');
 
-    if (authCubit.state is AuthCHeckNet && !isConnected) {
+    final CurrntState = authCubit.state;
+    if (CurrntState is AuthCHeckNet && !CurrntState.isHasInternet) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("❌No internet connection"),
           duration: Duration(seconds: 4),
           action: SnackBarAction(
             label: "Try Again",
-            onPressed: () =>
-                _onLoginButtonPressed(authCubit, isConnected, context),
+            onPressed: () => _onLoginButtonPressed(authCubit, context),
           ),
         ),
       );

@@ -30,15 +30,3 @@ part 'test_network_state.dart';
 //     );
 //   }
 // }
-
-Future<bool> CheckInternet() async {
-  final checkerS = LocatorApp.sl<CheckConnection>();
-  {
-    final result = await checkerS.checkMethod();
-    if (result.isRight()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
