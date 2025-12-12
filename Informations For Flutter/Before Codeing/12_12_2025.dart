@@ -60,10 +60,23 @@
 
 // ممكن تحفظ stats في متغير عشان تستخدمه اكتر من مرة
 // final CurrntState = authCubit.state;
-
+// Callback Function = فانكشن بتتبعت كـ باراميتر لفانكشن تانية، والفانكشن التانية هي اللي بتستدعيها وقت ما تحب.
 // اي داتا جاية من برا ريموت ديما اتسقبل ف الاستات  STate وابعت ووزع ال ui عليها
 // ===========================================================================
 
+
+// Examples of Callback Functions
+    // void sayHello() {
+    //   print("Hello!");
+    // }
+
+
+    // void sayName(String name) {
+    //   print("Hello $name");
+    // }
+    
+    // onPressed: sayHello,
+    // onPressed: () => sayName("Mohamed"),
 
 // =========== Chat GPT  to get Exmples =========
 // لو عايز، أقدر:
