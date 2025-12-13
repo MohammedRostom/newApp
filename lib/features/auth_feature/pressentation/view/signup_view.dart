@@ -76,7 +76,7 @@ class _SignupViewViewState extends State<SignupView> {
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage),
+                content: Row(children: [Text(state.errorMessage)]),
                 duration: Duration(seconds: 4),
                 backgroundColor: const Color.fromARGB(255, 222, 222, 222),
               ),
@@ -206,7 +206,13 @@ _signupButtonPressed(
   if (CurrntState is AuthCHeckNet && !CurrntState.isHasInternet) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("No internet connection"),
+        content: Row(
+          children: [
+            Icon(Icons.wifi_off_outlined, color: Colors.red),
+            SizedBox(width: 4.w),
+            Text("No internet connection"),
+          ],
+        ),
         duration: Duration(seconds: 4),
         backgroundColor: Colors.red,
         action: SnackBarAction(

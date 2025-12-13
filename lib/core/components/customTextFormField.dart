@@ -1,3 +1,4 @@
+import 'package:auth_feature_1_0/core/utils/app_Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -75,9 +76,7 @@ class CustomTextFormField extends StatelessWidget {
 
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.r),
-            borderSide: BorderSide(
-              color: const Color.fromARGB(255, 245, 117, 117),
-            ),
+            borderSide: BorderSide(color: AppColor.primarycolor),
           ),
         ),
       ),
