@@ -16,6 +16,11 @@ final class AuthDone extends AuthState {
   AuthDone({this.userEntity});
 }
 
+final class AuthInHome extends AuthState {
+  final AuthUserEntity? userEntity;
+  AuthInHome({this.userEntity});
+}
+
 final class AuthError extends AuthState {
   final String errorMessage;
   AuthError({required this.errorMessage});

@@ -1,3 +1,4 @@
+import 'package:auth_feature_1_0/core/errors/firebase_auth_errors.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/firestore_services/firebase_firestore_service_abst.dart';
 import 'package:auth_feature_1_0/features/auth_feature/data/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,9 +52,9 @@ class FireStoreServiceImpl extends FireStoreServiceAbst {
         print("User not found");
         return null;
       }
-    } catch (e) {
+    } on FirebaseException catch (e) {
       print("Error fetching user: $e");
-      return null;
+      return FirebaseAuthErrorMessages.getMessage(e.code) as AuthUserModel?;
     }
   }
 }

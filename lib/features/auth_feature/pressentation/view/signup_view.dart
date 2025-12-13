@@ -208,7 +208,7 @@ _signupButtonPressed(
       SnackBar(
         content: Row(
           children: [
-            Icon(Icons.wifi_off_outlined, color: Colors.red),
+            Icon(Icons.wifi_off_outlined, color: Colors.white),
             SizedBox(width: 4.w),
             Text("No internet connection"),
           ],

@@ -63,6 +63,21 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  // Future<AuthUserEntity?> getAuthUserFromFirestore({
+  //   required String uid,
+  //   required String username,
+  //   required String collectionName,
+  // }) {
+  //   final fireStoreService = LoactorApp.sl<FireStoreServiceAbst>();
+  //   final ModelStore = fireStoreService.getAuthUserFromFirestore(
+  //     uid: uid,
+  //     username: username,
+  //     collectionName: collectionName,
+  //   );
+  //   emit(AuthInHome(userEntity: ModelStore as AuthUserEntity?));
+  //   return ModelStore;
+  // }
+
   /// ================= LOGOUT =================
   Future<void> logoutUser() async {
     emit(AuthLoading());
