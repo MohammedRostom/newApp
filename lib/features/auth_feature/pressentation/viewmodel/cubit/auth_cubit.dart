@@ -1,5 +1,4 @@
 import 'package:auth_feature_1_0/core/Conenction/checKNet.dart';
-import 'package:auth_feature_1_0/core/Conenction/cubit/test_network_cubit.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_entity.dart';
 import 'package:auth_feature_1_0/features/auth_feature/domain/usecases/user_usecase.dart';
@@ -25,7 +24,9 @@ class AuthCubit extends Cubit<AuthState> {
       } else {
         emit(AuthCHeckNet(isHasInternet: true));
         final user = await InstanceUsecase.loginFromUseCase(email, password);
-        emit(AuthDone(user: user));
+        if (user != null) {
+          emit(AuthDone(userEntity: user));
+        }
       }
     } catch (e) {
       // خطأ عام
@@ -53,7 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
           email,
           password,
         );
-        emit(AuthDone(user: user));
+        emit(AuthDone(userEntity: user));
       }
     } catch (e) {
       // خطأ عام

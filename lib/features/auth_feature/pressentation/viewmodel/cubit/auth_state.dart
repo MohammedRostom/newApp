@@ -13,8 +13,8 @@ final class AuthCHeckNet extends AuthState {
 }
 
 final class AuthDone extends AuthState {
-  final AuthUserEntity? user;
-  AuthDone({this.user});
+  final AuthUserEntity? userEntity;
+  AuthDone({this.userEntity});
 }
 
 final class AuthError extends AuthState {

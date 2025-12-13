@@ -22,7 +22,7 @@ class RepositoryImpl extends RepositoryAbs {
       return userEntity;
     } catch (e) {
       print("Error during login: $e");
-      rethrow; // Optionally rethrow the error if needed
+      return Future.error(e);
     }
   }
 
@@ -40,7 +40,6 @@ class RepositoryImpl extends RepositoryAbs {
       );
       final AuthUserEntity userEntity = await AuthUserModel.fromMapToModel(
         user!,
-        username,
       );
       print(
         "Registration FromRemoteDataSourse=========> email :${userEntity.email}",

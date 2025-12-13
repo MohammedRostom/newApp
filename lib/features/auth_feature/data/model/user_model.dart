@@ -19,7 +19,7 @@ class AuthUserModel extends AuthUserEntity {
       photoUrl: user.photoURL,
       id: user.uid,
       email: user.email!,
-      username: username!,
+      username: username,
     );
   }
 
