@@ -28,7 +28,9 @@ class AuthCubit extends Cubit<AuthState> {
       final user = await useCase.loginFromUseCase(email, password);
       emit(AuthDone(userEntity: user));
     } catch (e) {
-      emit(AuthError(errorMessage: e.toString()));
+      e is String
+          ? emit(AuthError(errorMessage: e))
+          : emit(AuthError(errorMessage: e.toString()));
     }
   }
 
@@ -55,7 +57,9 @@ class AuthCubit extends Cubit<AuthState> {
 
       emit(AuthDone(userEntity: user));
     } catch (e) {
-      emit(AuthError(errorMessage: e.toString()));
+      e is String
+          ? emit(AuthError(errorMessage: e))
+          : emit(AuthError(errorMessage: e.toString()));
     }
   }
 

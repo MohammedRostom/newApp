@@ -77,7 +77,7 @@ class _SignupViewViewState extends State<SignupView> {
               SnackBar(
                 content: Text(state.errorMessage),
                 duration: Duration(seconds: 4),
-                backgroundColor: Colors.red,
+                backgroundColor: const Color.fromARGB(255, 222, 222, 222),
               ),
             );
           }
@@ -209,6 +209,7 @@ _signupButtonPressed(
         duration: Duration(seconds: 4),
         backgroundColor: Colors.red,
         action: SnackBarAction(
+          textColor: Colors.white,
           label: "Try Again",
           onPressed: () => _signupButtonPressed(
             username: username,
@@ -231,28 +232,17 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String message;
-    Color messageColor;
 
-    if (state is AuthError) {
-      message = state.message;
-      messageColor = Colors.red;
-    } else if (state is AuthDone) {
-      message = "${state.userEntity.email!} logged in 🥰";
-      messageColor = Colors.green;
-    } else if (state is AuthLoading) {
-      message = "Logging in... please wait";
-      messageColor = Colors.blue;
-    } else {
-      message = "Please login to continue";
-      messageColor = Colors.grey;
-    }
+    message = "Create An Account ";
+
+    Color messageColor = state is AuthError ? Colors.red : Colors.grey.shade600;
 
     return FullWidthContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Login",
+            "Sign up",
             style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.bold),
           ),
           Row(

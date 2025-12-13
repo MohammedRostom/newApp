@@ -37,7 +37,8 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
 
       return user;
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
+      print("frrrrrrrrrrrrrrrrrrrrrrm =========>${e.toString()}");
+      return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
@@ -60,7 +61,8 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
 
       return user;
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
+      print("frrrrrrrrrrrrrrrrrrrrrrm =========>${e.toString()}");
+      return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
@@ -77,7 +79,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
 
       return user;
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
+      return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 

@@ -58,18 +58,27 @@ class _LoginViewState extends State<LoginView> {
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthDone) {
-            Navigator.pushReplacementNamed(
-              context,
-              AppRoutes.homepage,
-              arguments: state.userEntity,
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(" Login Successful"),
+                duration: Duration(seconds: 3),
+                backgroundColor: Colors.green,
+              ),
             );
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.pushReplacementNamed(
+                context,
+                AppRoutes.homepage,
+                arguments: state.userEntity,
+              );
+            });
           }
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errorMessage),
                 duration: Duration(seconds: 4),
-                backgroundColor: Colors.red,
+                backgroundColor: const Color.fromARGB(255, 222, 222, 222),
               ),
             );
           }
@@ -174,6 +183,7 @@ _onLoginButtonPressed(
         duration: Duration(seconds: 4),
         backgroundColor: Colors.red,
         action: SnackBarAction(
+          textColor: Colors.white,
           label: "Try Again",
           onPressed: () => _onLoginButtonPressed(
             authCubit,

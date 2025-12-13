@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Constant {
   static final CollectionUsers = "users";
-
   static final mragin_screen_H = 16.w;
   static final double spaceHightBetweenElements = 16.h;
   static final double spaceWidthBetweenElements = 16.w;
