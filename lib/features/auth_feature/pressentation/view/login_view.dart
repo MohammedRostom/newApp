@@ -5,6 +5,7 @@ import 'package:auth_feature_1_0/core/components/ScreenBodyWiteMargain.dart';
 import 'package:auth_feature_1_0/core/components/customTextFormField.dart';
 import 'package:auth_feature_1_0/core/components/fillWidthCont.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
+import 'package:auth_feature_1_0/core/utils/app_Color.dart';
 import 'package:auth_feature_1_0/features/auth_feature/pressentation/viewmodel/cubit/auth_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ class _LoginViewState extends State<LoginView> {
                 backgroundColor: Colors.green,
               ),
             );
+
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pushReplacementNamed(
                 context,
@@ -218,7 +220,10 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   width: 16,
                   height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: AppColor.primarycolor,
+                  ),
                 ),
               SizedBox(width: 8),
               Expanded(

@@ -8,12 +8,12 @@ class AppRoutes {
   // ----------------------------------
   // Auth Feature Routes
   // ----------------------------------
-  static final test = "test";
+  // static final test = "test";
   static final login = "login";
   static final signup = "signup";
   static final homepage = "homepage";
   static Map<String, Widget Function(BuildContext)> MapOfViewsRouters = {
-    test: (context) => TestView(),
+    // test: (context) => TestView(),
     login: (context) => LoginView(),
     signup: (context) => SignupView(),
     homepage: (context) => HomepageView(),

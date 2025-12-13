@@ -5,6 +5,7 @@ import 'package:auth_feature_1_0/core/components/ScreenBodyWiteMargain.dart';
 import 'package:auth_feature_1_0/core/components/customTextFormField.dart';
 import 'package:auth_feature_1_0/core/components/fillWidthCont.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
+import 'package:auth_feature_1_0/core/utils/app_Color.dart';
 import 'package:auth_feature_1_0/features/auth_feature/pressentation/viewmodel/cubit/auth_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class _SignupViewViewState extends State<SignupView> {
                       flex: 2,
                       child: CachedNetworkImage(
                         imageUrl:
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1zPVlhIigbYWt6a2kHdKo0iVN_ibkTlSF5A&s",
+                            "https://cdni.iconscout.com/illustration/premium/thumb/account-login-protection-illustration-svg-download-png-7271014.png",
                       ),
                     ),
 
@@ -233,7 +234,7 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     String message;
 
-    message = "Create An Account ";
+    message = "Create An Account";
 
     Color messageColor = state is AuthError ? Colors.red : Colors.grey.shade600;
 
@@ -251,7 +252,10 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   width: 16,
                   height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: AppColor.primarycolor,
+                  ),
                 ),
               SizedBox(width: 8),
               Expanded(
@@ -281,7 +285,7 @@ class _LoginRedirect extends StatelessWidget {
           onTap: () => Navigator.pushNamed(context, AppRoutes.login),
           child: Text(
             "Login",
-            style: TextStyle(fontSize: 14.sp, color: Colors.blue),
+            style: TextStyle(fontSize: 14.sp, color: AppColor.primarycolor),
           ),
         ),
       ],

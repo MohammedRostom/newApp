@@ -1,3 +1,4 @@
+import 'package:auth_feature_1_0/core/utils/app_Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,13 +20,13 @@ class CustomFillBtn extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 24.w),
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 24.w),
           decoration: BoxDecoration(
-            color: Colors.redAccent,
+            color: AppColor.primarycolor,
             borderRadius: BorderRadius.circular(30.r),
           ),
 
-          height: 48.0.h,
+          height: 44.0.h,
           child: Center(
             child: isloding
                 ? CircularProgressIndicator(color: Colors.white)
