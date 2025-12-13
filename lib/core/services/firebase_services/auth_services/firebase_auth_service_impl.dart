@@ -1,4 +1,5 @@
 import 'package:auth_feature_1_0/core/Constant.dart';
+import 'package:auth_feature_1_0/core/errors/firebase_auth_errors.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/auth_services/firebase_auth_service_abst.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/firestore_services/firebase_firestore_service_abst.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,41 +10,40 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
 
   FirebaseAuthServiceImpl({required this.firebaseStore});
 
-  /// Sign up with email & password
-  Future<User?> signUpWithEmail({
+  /// ================= SIGN UP =================
+  @override
+  Future<User> signUpWithEmail({
     required String username,
     required String email,
     required String password,
   }) async {
     try {
-      final userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .whenComplete(() {
-            try {
-              // add to firestore
-              firebaseStore.addAuthUserToFirestore(
-                _auth.currentUser!.uid,
-                username,
-                email,
-                Constant.CollectionUsers,
-              );
-            } catch (e) {
-              // Handle Firestore error
-              print('Error adding user to Firestore: $e');
-            }
-          });
-      return userCredential.user;
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final user = userCredential.user;
+      if (user == null) {
+        throw Exception('فشل إنشاء المستخدم');
+      }
+
+      await firebaseStore.addAuthUserToFirestore(
+        user.uid,
+        username,
+        email,
+        Constant.CollectionUsers,
+      );
+
+      return user;
     } on FirebaseAuthException catch (e) {
-      print('FirebaseAuthException: ${e.message}');
-      return null;
-    } catch (e) {
-      print('Error: $e');
-      return null;
+      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
-  /// Login with email & password
-  Future<User?> signInWithEmail({
+  /// ================= SIGN IN =================
+  @override
+  Future<User> signInWithEmail({
     required String email,
     required String password,
   }) async {
@@ -52,47 +52,57 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
         email: email,
         password: password,
       );
-      return userCredential.user;
+
+      final user = userCredential.user;
+      if (user == null) {
+        throw Exception('فشل تسجيل الدخول');
+      }
+
+      return user;
     } on FirebaseAuthException catch (e) {
-      print('FirebaseAuthException: ${e.message}');
-      return null;
-    } catch (e) {
-      print('Error: $e');
-      return null;
+      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
-  /// Sign in anonymously
-  Future<User?> signInAnonymously() async {
+  /// ================= ANONYMOUS =================
+  @override
+  Future<User> signInAnonymously() async {
     try {
       final userCredential = await _auth.signInAnonymously();
-      return userCredential.user;
+
+      final user = userCredential.user;
+      if (user == null) {
+        throw Exception('فشل الدخول كضيف');
+      }
+
+      return user;
     } on FirebaseAuthException catch (e) {
-      print('FirebaseAuthException: ${e.message}');
-      return null;
-    } catch (e) {
-      print('Error: $e');
-      return null;
+      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
-  /// Logout
+  /// ================= LOGOUT =================
+  @override
   Future<void> signOut() async {
     try {
       await _auth.signOut();
-    } catch (e) {
-      print('Error signing out: $e');
+    } catch (_) {
+      throw Exception('فشل تسجيل الخروج');
     }
   }
 
-  /// Delete account
+  /// ================= DELETE ACCOUNT =================
+  @override
   Future<void> deleteAccount() async {
     try {
-      await _auth.currentUser?.delete();
+      final user = _auth.currentUser;
+      if (user == null) {
+        throw Exception('لا يوجد مستخدم');
+      }
+
+      await user.delete();
     } on FirebaseAuthException catch (e) {
-      print('FirebaseAuthException: ${e.message}');
-    } catch (e) {
-      print('Error: $e');
+      throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 }

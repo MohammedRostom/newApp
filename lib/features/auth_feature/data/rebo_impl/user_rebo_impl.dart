@@ -10,20 +10,12 @@ class RepositoryImpl extends RepositoryAbs {
 
   @override
   Future<AuthUserEntity> login(String email, String password) async {
-    try {
-      final user = await remoteUserDataSource.LoginFromDataSource(
-        email,
-        password,
-      );
-      final AuthUserEntity userEntity = await AuthUserModel.fromMapToModel(
-        user!,
-      );
-      print("login FromRemoteDataSourse=========> email :${userEntity.email}");
-      return userEntity;
-    } catch (e) {
-      print("Error during login: $e");
-      return Future.error(e);
-    }
+    final user = await remoteUserDataSource.loginFromDataSource(
+      email,
+      password,
+    );
+    final AuthUserEntity userEntity = AuthUserModel.fromMapToModel(user!);
+    return userEntity;
   }
 
   @override
@@ -32,30 +24,17 @@ class RepositoryImpl extends RepositoryAbs {
     String email,
     String password,
   ) async {
-    try {
-      final user = await remoteUserDataSource.RegistrationFromDataSource(
-        username,
-        email,
-        password,
-      );
-      final AuthUserEntity userEntity = await AuthUserModel.fromMapToModel(
-        user!,
-      );
-      print(
-        "Registration FromRemoteDataSourse=========> email :${userEntity.email}",
-      );
-      return userEntity;
-    } catch (e) {
-      print("Error during registration: $e");
-    }
+    final user = await remoteUserDataSource.registrationFromDataSource(
+      username,
+      email,
+      password,
+    );
+    final AuthUserEntity userEntity = AuthUserModel.fromMapToModel(user!);
+    return userEntity;
   }
 
   @override
   Future<void> logout() async {
-    try {
-      await remoteUserDataSource.LogOutFromDataSource();
-    } catch (e) {
-      print("Error during logout: $e");
-    }
+    await remoteUserDataSource.logOutFromDataSource();
   }
 }

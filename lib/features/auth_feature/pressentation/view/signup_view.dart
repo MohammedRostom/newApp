@@ -66,11 +66,20 @@ class _SignupViewViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     // =========================================================
     return BlocProvider(
-      create: (context) => LocatorApp.sl<AuthCubit>(),
+      create: (context) => LoactorApp.sl<AuthCubit>(),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthDone) {
             Navigator.pushReplacementNamed(context, AppRoutes.login);
+          }
+          if (state is AuthError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+                duration: Duration(seconds: 4),
+                backgroundColor: Colors.red,
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -159,15 +168,6 @@ class _SignupViewViewState extends State<SignupView> {
                                             Pass: _passwordController.text
                                                 .trim(),
                                           );
-
-                                          // .whenComplete(() {
-                                          //   if (state is AuthDone) {
-                                          //     Navigator.pushReplacementNamed(
-                                          //       context,
-                                          //       AppRoutes.login,
-                                          //     );
-                                          //   }
-                                          // });
                                         }
                                       },
                                     ),
@@ -199,7 +199,7 @@ _signupButtonPressed(
   required String email,
   required String Pass,
 }) async {
-  await authCubit.SignupUser(username, email, Pass);
+  await authCubit.signupUser(username, email, Pass);
 
   final CurrntState = authCubit.state;
   if (CurrntState is AuthCHeckNet && !CurrntState.isHasInternet) {

@@ -10,7 +10,7 @@ import 'package:auth_feature_1_0/features/auth_feature/domain/usecases/user_usec
 import 'package:auth_feature_1_0/features/auth_feature/pressentation/viewmodel/cubit/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 
-class LocatorApp {
+class LoactorApp {
   static final sl = GetIt.instance;
   // -----------------------------------------------------------
   // AUTH SETUP
@@ -35,7 +35,7 @@ class LocatorApp {
       () => UserUseCase(repositoryAbs: sl()),
     );
     sl.registerFactory<CheckConnection>(() => CheckConnection());
-    sl.registerFactory<AuthCubit>(() => AuthCubit());
+    sl.registerFactory<AuthCubit>(() => AuthCubit(connectionChecker: sl()));
   }
 
   //  init calling

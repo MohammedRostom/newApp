@@ -5,40 +5,28 @@ class RemoteUserDataSource {
   final FirebaseAuthServiceAbst firebaseAuthServiceAbs;
   RemoteUserDataSource({required this.firebaseAuthServiceAbs});
 
-  Future<User?> LoginFromDataSource(String email, String password) async {
-    try {
-      final User? user = await firebaseAuthServiceAbs.signInWithEmail(
-        email: email,
-        password: password,
-      );
-      if (user != null) {
-        return user;
-      }
-    } catch (e) {
-      throw Exception("Login failed: $e");
-    }
+  Future<User?> loginFromDataSource(String email, String password) async {
+    final User? user = await firebaseAuthServiceAbs.signInWithEmail(
+      email: email,
+      password: password,
+    );
+    return user;
   }
 
-  Future<User?> RegistrationFromDataSource(
+  Future<User?> registrationFromDataSource(
     String username,
     String email,
     String password,
   ) async {
-    try {
-      final User? user = await firebaseAuthServiceAbs.signUpWithEmail(
-        username: username,
-        email: email,
-        password: password,
-      );
-      if (user != null) {
-        return user;
-      }
-    } catch (e) {
-      throw Exception("Registration failed: $e");
-    }
+    final User? user = await firebaseAuthServiceAbs.signUpWithEmail(
+      username: username,
+      email: email,
+      password: password,
+    );
+    return user;
   }
 
-  Future<void> LogOutFromDataSource() async {
-    return await firebaseAuthServiceAbs.signOut();
+  Future<void> logOutFromDataSource() async {
+    await firebaseAuthServiceAbs.signOut();
   }
 }

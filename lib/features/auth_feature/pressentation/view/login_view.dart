@@ -54,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LocatorApp.sl<AuthCubit>(),
+      create: (context) => LoactorApp.sl<AuthCubit>(),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthDone) {
@@ -62,6 +62,15 @@ class _LoginViewState extends State<LoginView> {
               context,
               AppRoutes.homepage,
               arguments: state.userEntity,
+            );
+          }
+          if (state is AuthError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+                duration: Duration(seconds: 4),
+                backgroundColor: Colors.red,
+              ),
             );
           }
         },
