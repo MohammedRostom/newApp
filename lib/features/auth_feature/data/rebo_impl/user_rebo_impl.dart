@@ -1,7 +1,7 @@
 import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_entity.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/rebo_abs/user_rebo_aps.dart';
 import 'package:auth_feature_1_0/features/auth_feature/data/datasource/remote/user_datasource.dart';
-import 'package:auth_feature_1_0/features/auth_feature/data/model/user_model.dart';
+import 'package:auth_feature_1_0/features/auth_feature/data/mapper/user_mapper.dart';
 
 class RepositoryImpl extends RepositoryAbs {
   final RemoteUserDataSource remoteUserDataSource;
@@ -10,12 +10,11 @@ class RepositoryImpl extends RepositoryAbs {
 
   @override
   Future<AuthUserEntity> login(String email, String password) async {
-    final user = await remoteUserDataSource.loginFromDataSource(
+    final model = await remoteUserDataSource.loginFromDataSource(
       email,
       password,
     );
-    final AuthUserEntity userEntity = AuthUserModel.fromMapToModel(user!);
-    return userEntity;
+    return UserMapper.toEntity(model); // mapper Apply
   }
 
   @override
@@ -24,13 +23,12 @@ class RepositoryImpl extends RepositoryAbs {
     String email,
     String password,
   ) async {
-    final user = await remoteUserDataSource.registrationFromDataSource(
+    final model = await remoteUserDataSource.registrationFromDataSource(
       username,
       email,
       password,
     );
-    final AuthUserEntity userEntity = AuthUserModel.fromMapToModel(user!);
-    return userEntity;
+    return UserMapper.toEntity(model);
   }
 
   @override

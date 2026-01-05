@@ -2,6 +2,7 @@ import 'package:auth_feature_1_0/core/Constant.dart';
 import 'package:auth_feature_1_0/core/errors/firebase_auth_errors.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/auth_services/firebase_auth_service_abst.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/firestore_services/firebase_firestore_service_abst.dart';
+import 'package:auth_feature_1_0/features/auth_feature/data/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
@@ -12,7 +13,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
 
   /// ================= SIGN UP =================
   @override
-  Future<User> signUpWithEmail({
+  Future<AuthUserModel> signUpWithEmail({
     required String username,
     required String email,
     required String password,
@@ -28,23 +29,27 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
         throw Exception('فشل إنشاء المستخدم');
       }
 
+      final model = AuthUserModel.fromMapToModel(
+        user,
+        username,
+      ); // parsing from USer to AuthUserModel
+
       await firebaseStore.addAuthUserToFirestore(
-        user.uid,
         username,
         email,
+        user.uid,
         Constant.CollectionUsers,
       );
 
-      return user;
+      return model;
     } on FirebaseAuthException catch (e) {
-      print("frrrrrrrrrrrrrrrrrrrrrrm =========>${e.toString()}");
       return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
   /// ================= SIGN IN =================
   @override
-  Future<User> signInWithEmail({
+  Future<AuthUserModel> signInWithEmail({
     required String email,
     required String password,
   }) async {
@@ -59,16 +64,15 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
         throw Exception('فشل تسجيل الدخول');
       }
 
-      return user;
+      return AuthUserModel.fromMapToModel(user);
     } on FirebaseAuthException catch (e) {
-      print("frrrrrrrrrrrrrrrrrrrrrrm =========>${e.toString()}");
       return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
   /// ================= ANONYMOUS =================
   @override
-  Future<User> signInAnonymously() async {
+  Future<AuthUserModel> signInAnonymously() async {
     try {
       final userCredential = await _auth.signInAnonymously();
 
@@ -77,7 +81,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
         throw Exception('فشل الدخول كضيف');
       }
 
-      return user;
+      return AuthUserModel.fromMapToModel(user);
     } on FirebaseAuthException catch (e) {
       return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }

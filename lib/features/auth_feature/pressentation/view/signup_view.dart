@@ -67,7 +67,7 @@ class _SignupViewViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     // =========================================================
     return BlocProvider(
-      create: (context) => LoactorApp.sl<AuthCubit>(),
+      create: (context) => gtit<AuthCubit>(),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthDone) {
