@@ -1,4 +1,5 @@
-import 'package:auth_feature_1_0/config/routes/app_routes.dart';
+import 'package:auth_feature_1_0/config/routes/app_views.dart';
+import 'package:auth_feature_1_0/config/routes/routers.dart';
 import 'package:auth_feature_1_0/core/Constant.dart';
 import 'package:auth_feature_1_0/core/components/CustomFillBtn.dart';
 import 'package:auth_feature_1_0/core/components/ScreenBodyWiteMargain.dart';
@@ -71,7 +72,7 @@ class _SignupViewViewState extends State<SignupView> {
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthDone) {
-            Navigator.pushReplacementNamed(context, AppRoutes.login);
+            Navigator.pushReplacementNamed(context, loginRoute);
           }
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -288,7 +289,7 @@ class _LoginRedirect extends StatelessWidget {
       children: [
         Text("Already have an account? ", style: TextStyle(fontSize: 14.sp)),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.login),
+          onTap: () => Navigator.pushNamed(context, loginRoute),
           child: Text(
             "Login",
             style: TextStyle(fontSize: 14.sp, color: AppColor.primarycolor),

@@ -5,12 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireStoreServiceImpl extends FireStoreServiceAbst {
   // Implement Firestore methods here
-  Future<bool> addAuthUserToFirestore(
-    uid,
-    username,
-    email,
-    CollectionName,
-  ) async {
+  Future<bool> addAuthUserToFirestore({
+    required String uid,
+    required String username,
+    required String email,
+    required String CollectionName,
+  }) async {
     try {
       AuthUserModel userModel = AuthUserModel(
         id: uid,
@@ -26,35 +26,30 @@ class FireStoreServiceImpl extends FireStoreServiceAbst {
     } catch (e) {
       print("Error adding user to Firestore: $e");
       return false;
+      //  في اصلاح هنا بتاعي on FirebaseException =================== متنساش
     }
   }
 
+  @override
   Future<AuthUserModel?> getAuthUserFromFirestore({
     required String uid,
-    required String username,
     required String collectionName,
   }) async {
     try {
-      // Search by each Document, not JSON Documents
-      DocumentSnapshot doc = await FirebaseFirestore.instance
+      final doc = await FirebaseFirestore.instance
           .collection(collectionName)
           .doc(uid)
           .get();
-      if (doc.exists) {
-        AuthUserModel Model = AuthUserModel(
-          id: doc['id'],
-          username: doc['username'],
-          email: doc['email'],
-        );
-        print(Model.username);
-        return Model;
-      } else {
-        print("User not found");
-        return null;
-      }
+
+      if (!doc.exists) return null;
+
+      return AuthUserModel(
+        id: doc['id'],
+        email: doc['email'],
+        username: doc['username'],
+      );
     } on FirebaseException catch (e) {
-      print("Error fetching user: $e");
-      return FirebaseAuthErrorMessages.getMessage(e.code) as AuthUserModel?;
+      throw FirebaseAuthErrorMessages.getMessage(e.code);
     }
   }
 }

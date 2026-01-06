@@ -10,12 +10,16 @@ class UserUseCase {
     return repositoryAbs.login(email, password);
   }
 
-  Future<AuthUserEntity?> registrationFromUseCase(
-    String username,
-    String email,
-    String password,
-  ) {
-    return repositoryAbs.registration(username, email, password);
+  Future<AuthUserEntity?> signInWithGoogleFromUseCase() {
+    return repositoryAbs.signInWithGoogle();
+  }
+
+  Future<void> resetPasswordFromUseCase(String email) {
+    return repositoryAbs.resetPassword(email);
+  }
+
+  Future<void> sendEmailVerificationFromUseCase(String email) {
+    return repositoryAbs.sendEmailVerification(email);
   }
 
   Future<void> logoutFromUseCase() {

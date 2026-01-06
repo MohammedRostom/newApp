@@ -1,4 +1,5 @@
-import 'package:auth_feature_1_0/config/routes/app_routes.dart';
+import 'package:auth_feature_1_0/config/routes/app_views.dart';
+import 'package:auth_feature_1_0/config/routes/routers.dart';
 import 'package:auth_feature_1_0/core/Constant.dart';
 import 'package:auth_feature_1_0/core/components/CustomFillBtn.dart';
 import 'package:auth_feature_1_0/core/components/ScreenBodyWiteMargain.dart';
@@ -70,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pushReplacementNamed(
                 context,
-                AppRoutes.homepage,
+                homePageRoute,
                 arguments: state.userEntity,
               );
             });
@@ -78,9 +79,14 @@ class _LoginViewState extends State<LoginView> {
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage),
+                content: Row(
+                  children: [
+                    Icon(Icons.warning_amber_outlined),
+                    Text(state.errorMessage),
+                  ],
+                ),
                 duration: Duration(seconds: 4),
-                backgroundColor: const Color.fromARGB(255, 222, 222, 222),
+                backgroundColor: const Color.fromARGB(255, 234, 102, 20),
               ),
             );
           }
@@ -256,7 +262,7 @@ class _SignupRedirect extends StatelessWidget {
       children: [
         Text("Create an account? ", style: TextStyle(fontSize: 14.sp)),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.signup),
+          onTap: () => Navigator.pushNamed(context, signupRoute),
           child: Text(
             "Sign up",
             style: TextStyle(fontSize: 14.sp, color: Colors.red),

@@ -1,16 +1,22 @@
 import 'package:auth_feature_1_0/core/Conenction/checKNet.dart';
+import 'package:auth_feature_1_0/core/Constant.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_entity.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/rebo_abs/user_rebo_aps.dart';
+import 'package:auth_feature_1_0/features/auth_feature/Domain/usecases/getUser_usecase.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/usecases/user_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit({required this.connectionChecker}) : super(AuthInitial());
+  AuthCubit({required this.connectionChecker, required this.getUserUseCase})
+    : super(AuthInitial());
 
-  final UserUseCase useCase = UserUseCase(repositoryAbs: gtit<RepositoryAbs>());
+  final UserUseCase authUserUseCase = UserUseCase(
+    repositoryAbs: gtit<RepositoryAbs>(),
+  );
 
+  final GetUserUsecase getUserUseCase;
   final CheckConnection connectionChecker;
 
   /// ================= LOGIN =================
@@ -24,17 +30,18 @@ class AuthCubit extends Cubit<AuthState> {
         return;
       }
 
-      final user = await useCase.loginFromUseCase(email, password);
-      // get user And
-      // if email from login === Email from FireStore ?
-      // get userName from DucumentSnapshot
-      // https://chatgpt.com/c/695c23f8-4fec-8329-a945-027969e6feaa
+      // 1️⃣ Login
+      final user = await authUserUseCase.loginFromUseCase(email, password);
 
-      emit(AuthDone(userEntity: user));
+      // 2️⃣ Get full profile from Firestore
+      final profile = await getUserUseCase.GetUserFromUseCase(
+        user.id,
+        Constant.CollectionUsers,
+      );
+
+      emit(AuthDone(userEntity: profile ?? user));
     } catch (e) {
-      e is String
-          ? emit(AuthError(errorMessage: e))
-          : emit(AuthError(errorMessage: e.toString()));
+      emit(AuthError(errorMessage: e.toString()));
     }
   }
 
@@ -53,7 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
         return;
       }
 
-      final user = await useCase.registrationFromUseCase(
+      final user = await authUserUseCase.registrationFromUseCase(
         username,
         email,
         password,
@@ -67,25 +74,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Future<AuthUserEntity?> getAuthUserFromFirestore({
-  //   required String uid,
-  //   required String username,
-  //   required String collectionName,
-  // }) {
-  //   final fireStoreService = LoactorApp.sl<FireStoreServiceAbst>();
-  //   final ModelStore = fireStoreService.getAuthUserFromFirestore(
-  //     uid: uid,
-  //     username: username,
-  //     collectionName: collectionName,
-  //   );
-  //   emit(AuthInHome(userEntity: ModelStore as AuthUserEntity?));
-  //   return ModelStore;
-  // }
-
   /// ================= LOGOUT =================
   Future<void> logoutUser() async {
     emit(AuthLoading());
-    await useCase.logoutFromUseCase();
+    await authUserUseCase.logoutFromUseCase();
     emit(AuthLoggedOut());
   }
 

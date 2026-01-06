@@ -35,15 +35,15 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
       ); // parsing from USer to AuthUserModel
 
       await firebaseStore.addAuthUserToFirestore(
-        username,
-        email,
-        user.uid,
-        Constant.CollectionUsers,
+        uid: user.uid,
+        username: model.username!,
+        email: model.email,
+        CollectionName: Constant.CollectionUsers,
       );
 
       return model;
     } on FirebaseAuthException catch (e) {
-      return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
+      throw Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
 
@@ -66,49 +66,49 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
 
       return AuthUserModel.fromMapToModel(user);
     } on FirebaseAuthException catch (e) {
-      return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
-    }
-  }
-
-  /// ================= ANONYMOUS =================
-  @override
-  Future<AuthUserModel> signInAnonymously() async {
-    try {
-      final userCredential = await _auth.signInAnonymously();
-
-      final user = userCredential.user;
-      if (user == null) {
-        throw Exception('فشل الدخول كضيف');
-      }
-
-      return AuthUserModel.fromMapToModel(user);
-    } on FirebaseAuthException catch (e) {
-      return Future.error(FirebaseAuthErrorMessages.getMessage(e.code));
-    }
-  }
-
-  /// ================= LOGOUT =================
-  @override
-  Future<void> signOut() async {
-    try {
-      await _auth.signOut();
-    } catch (_) {
-      throw Exception('فشل تسجيل الخروج');
-    }
-  }
-
-  /// ================= DELETE ACCOUNT =================
-  @override
-  Future<void> deleteAccount() async {
-    try {
-      final user = _auth.currentUser;
-      if (user == null) {
-        throw Exception('لا يوجد مستخدم');
-      }
-
-      await user.delete();
-    } on FirebaseAuthException catch (e) {
       throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
     }
   }
+
+  // /// ================= ANONYMOUS =================
+  // @override
+  // Future<AuthUserModel> signInAnonymously() async {
+  //   try {
+  //     final userCredential = await _auth.signInAnonymously();
+
+  //     final user = userCredential.user;
+  //     if (user == null) {
+  //       throw Exception('فشل الدخول كضيف');
+  //     }
+
+  //     return AuthUserModel.fromMapToModel(user);
+  //   } on FirebaseAuthException catch (e) {
+  //     throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
+  //   }
+  // }
+
+  // /// ================= LOGOUT =================
+  // @override
+  // Future<void> signOut() async {
+  //   try {
+  //     await _auth.signOut();
+  //   } catch (_) {
+  //     throw Exception('فشل تسجيل الخروج');
+  //   }
+  // }
+
+  // /// ================= DELETE ACCOUNT =================
+  // @override
+  // Future<void> deleteAccount() async {
+  //   try {
+  //     final user = _auth.currentUser;
+  //     if (user == null) {
+  //       throw Exception('لا يوجد مستخدم');
+  //     }
+
+  //     await user.delete();
+  //   } on FirebaseAuthException catch (e) {
+  //     throw Exception(FirebaseAuthErrorMessages.getMessage(e.code));
+  //   }
+  // }
 }

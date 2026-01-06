@@ -1,4 +1,5 @@
-import 'package:auth_feature_1_0/config/routes/app_routes.dart';
+import 'package:auth_feature_1_0/config/routes/app_views.dart';
+import 'package:auth_feature_1_0/config/routes/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,8 +14,8 @@ class StartManger extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        routes: AppRoutes.MapOfViewsRouters,
-        initialRoute: AppRoutes.login,
+        routes: AppViews.MapOfViewsRouters,
+        initialRoute: loginRoute,
       ),
     );
   }

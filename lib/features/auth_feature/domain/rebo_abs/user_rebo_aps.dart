@@ -7,5 +7,8 @@ abstract class RepositoryAbs {
     String email,
     String password,
   );
+  Future<AuthUserEntity> signInWithGoogle();
+  Future<void> resetPassword(String email);
+  Future<void> sendEmailVerification(String email);
   Future<void> logout();
 }
