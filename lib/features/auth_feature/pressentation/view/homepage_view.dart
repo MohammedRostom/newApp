@@ -16,6 +16,10 @@ class HomepageView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              'Username : Sooooooon......?',
+              style: const TextStyle(fontSize: 18),
+            ),
             Text('Email: ${args.email}', style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 8),
             Text('ID: ${args.id}', style: const TextStyle(fontSize: 18)),
