@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
               SnackBar(
                 content: Row(
                   children: [
-                    Icon(Icons.warning_amber_outlined),
+                    Icon(Icons.warning_amber_outlined, color: Colors.white),
                     Text(state.errorMessage),
                   ],
                 ),
@@ -130,12 +130,23 @@ class _LoginViewState extends State<LoginView> {
                                     ),
                                     SpaceHeightBetweenElements(),
                                     CustomTextFormField(
+                                      OntappBtn: () {
+                                        cubitAuthController
+                                            .togglePasswordVisibility();
+                                      },
                                       controller: _passwordController,
                                       hintText: "Password",
                                       prefixIcon: Icons.lock,
+                                      suffixIcon:
+                                          cubitAuthController.isPasswordVisible
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
                                       keyboardType:
                                           TextInputType.visiblePassword,
-                                      obscureText: true,
+                                      obscureText:
+                                          cubitAuthController.isPasswordVisible
+                                          ? true
+                                          : false,
                                       validator: _validatePassword,
                                     ),
                                     SpaceHeightBetweenElements(),

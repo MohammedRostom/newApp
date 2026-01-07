@@ -135,22 +135,44 @@ class _SignupViewViewState extends State<SignupView> {
                                     ),
                                     SpaceHeightBetweenElements(),
                                     CustomTextFormField(
+                                      OntappBtn: () {
+                                        cubitAuthController
+                                            .togglePasswordVisibility();
+                                      },
                                       controller: _passwordController,
                                       hintText: "Password",
                                       prefixIcon: Icons.lock,
+                                      suffixIcon:
+                                          cubitAuthController.isPasswordVisible
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
                                       keyboardType:
                                           TextInputType.visiblePassword,
-                                      obscureText: true,
+                                      obscureText:
+                                          cubitAuthController.isPasswordVisible
+                                          ? true
+                                          : false,
                                       validator: _validatePassword,
                                     ),
                                     SpaceHeightBetweenElements(),
                                     CustomTextFormField(
+                                      OntappBtn: () {
+                                        cubitAuthController
+                                            .togglePasswordVisibility();
+                                      },
                                       controller: _rePasswordController,
                                       hintText: "Confirm Password",
                                       prefixIcon: Icons.lock,
+                                      suffixIcon:
+                                          cubitAuthController.isPasswordVisible
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
                                       keyboardType:
                                           TextInputType.visiblePassword,
-                                      obscureText: true,
+                                      obscureText:
+                                          cubitAuthController.isPasswordVisible
+                                          ? true
+                                          : false,
                                       validator: _validateConfirmPassword,
                                     ),
                                     SpaceBetweenSections(spaceHeight: 20.h),

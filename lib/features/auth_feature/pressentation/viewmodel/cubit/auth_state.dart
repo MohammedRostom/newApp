@@ -26,3 +26,5 @@ final class AuthRestPass extends AuthState {}
 final class AuthSendToConfirm extends AuthState {}
 
 final class AuthLoggedOut extends AuthState {}
+
+final class AuthTogglePasswordVisibility extends AuthState {}

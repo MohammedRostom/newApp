@@ -94,4 +94,11 @@ class AuthCubit extends Cubit<AuthState> {
     await authUserUseCase.sendEmailVerificationCall();
     emit(AuthSendToConfirm());
   }
+
+  // visblity password
+  bool isPasswordVisible = false;
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    emit(AuthTogglePasswordVisibility());
+  }
 }

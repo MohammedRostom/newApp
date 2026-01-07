@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final void Function(String?)? onSaved;
+  final void Function()? OntappBtn;
   final int maxLines;
 
   /// ✅ دعم Regex Validation
@@ -32,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines = 1,
     this.regexPattern,
     this.regexError,
+    this.OntappBtn,
   });
 
   @override
@@ -69,7 +71,7 @@ class CustomTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-          suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
+          suffixIcon: IconButton(icon: Icon(suffixIcon), onPressed: OntappBtn),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.r),
             borderSide: BorderSide(
