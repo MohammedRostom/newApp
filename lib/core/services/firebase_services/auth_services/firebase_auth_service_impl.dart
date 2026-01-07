@@ -4,6 +4,7 @@ import 'package:auth_feature_1_0/core/services/firebase_services/auth_services/f
 import 'package:auth_feature_1_0/core/services/firebase_services/firestore_services/firebase_firestore_service_abst.dart';
 import 'package:auth_feature_1_0/features/auth_feature/data/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -70,6 +71,61 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
     }
   }
 
+  // @override
+
+  // Future<UserCredential> signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  //     final GoogleSignInAccount? googleUser =
+  //         await googleSignIn.signIn();
+
+  //     if (googleUser == null) {
+  //       throw Exception('Google sign in canceled');
+  //     }
+
+  //     final GoogleSignInAuthentication googleAuth =
+  //         await googleUser.authentication;
+
+  //     final credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+
+  //     final userCredential =
+  //         await FirebaseAuth.instance.signInWithCredential(
+  //       credential,
+  //     );
+
+  //     return userCredential;
+  //   } on FirebaseAuthException catch (e) {
+  //     throw FirebaseAuthErrorMessages.getMessage(e.code);
+  //   }
+  // }
+
+  Future<void> resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthErrorMessages.getMessage(e.code);
+    }
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        throw Exception('No logged in user');
+      }
+
+      await user.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthErrorMessages.getMessage(e.code);
+    }
+  }
+
   // /// ================= ANONYMOUS =================
   // @override
   // Future<AuthUserModel> signInAnonymously() async {
@@ -87,15 +143,15 @@ class FirebaseAuthServiceImpl extends FirebaseAuthServiceAbst {
   //   }
   // }
 
-  // /// ================= LOGOUT =================
-  // @override
-  // Future<void> signOut() async {
-  //   try {
-  //     await _auth.signOut();
-  //   } catch (_) {
-  //     throw Exception('فشل تسجيل الخروج');
-  //   }
-  // }
+  /// ================= LOGOUT =================
+  @override
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (_) {
+      throw Exception('فشل تسجيل الخروج');
+    }
+  }
 
   // /// ================= DELETE ACCOUNT =================
   // @override

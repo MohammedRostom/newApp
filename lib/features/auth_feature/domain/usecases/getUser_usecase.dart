@@ -6,10 +6,7 @@ class GetUserUsecase {
 
   GetUserUsecase({required this.getUserReboAps});
 
-  Future<AuthUserEntity?> GetUserFromUseCase(
-    String uid,
-    String collectionName,
-  ) async {
+  Future<AuthUserEntity?> GetUserCall(String uid, String collectionName) async {
     return await getUserReboAps.getUser(uid, collectionName);
   }
 }

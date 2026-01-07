@@ -138,7 +138,33 @@ class _LoginViewState extends State<LoginView> {
                                       obscureText: true,
                                       validator: _validatePassword,
                                     ),
-                                    SpaceBetweenSections(spaceHeight: 20.h),
+                                    SpaceHeightBetweenElements(),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          Navigator.pushReplacementNamed(
+                                            context,
+                                            resetPasswordRoute,
+                                          ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "Forget Password?",
+                                            style: TextStyle(
+                                              decorationColor:
+                                                  AppColor.primarycolor,
+
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              fontSize: 14.sp,
+                                              color: AppColor.primarycolor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SpaceHeightBetweenElements(),
                                     CustomFillBtn(
                                       isloding: state is AuthLoading
                                           ? true
@@ -265,7 +291,13 @@ class _SignupRedirect extends StatelessWidget {
           onTap: () => Navigator.pushNamed(context, signupRoute),
           child: Text(
             "Sign up",
-            style: TextStyle(fontSize: 14.sp, color: Colors.red),
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.red,
+              decorationColor: AppColor.primarycolor,
+
+              decoration: TextDecoration.underline,
+            ),
           ),
         ),
       ],

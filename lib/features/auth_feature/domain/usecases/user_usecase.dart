@@ -6,23 +6,28 @@ class UserUseCase {
   final RepositoryAbs repositoryAbs;
   UserUseCase({required this.repositoryAbs});
 
-  Future<AuthUserEntity> loginFromUseCase(String email, String password) {
+  Future<AuthUserEntity> loginCall(String email, String password) {
     return repositoryAbs.login(email, password);
   }
 
-  Future<AuthUserEntity?> signInWithGoogleFromUseCase() {
-    return repositoryAbs.signInWithGoogle();
+  Future<AuthUserEntity?> regiterCall(
+    String username,
+    String email,
+    String password,
+  ) {
+    return repositoryAbs.registration(username, email, password);
   }
 
-  Future<void> resetPasswordFromUseCase(String email) {
-    return repositoryAbs.resetPassword(email);
-  }
+  // Future<AuthUserEntity?> signInWithGoogleFromUseCase() {
+  //   return repositoryAbs.signInWithGoogle();
+  // }
+  Future<void> resetPasswordCall(String email) =>
+      repositoryAbs.resetPassword(email);
 
-  Future<void> sendEmailVerificationFromUseCase(String email) {
-    return repositoryAbs.sendEmailVerification(email);
-  }
+  Future<void> sendEmailVerificationCall() =>
+      repositoryAbs.sendEmailVerification();
 
-  Future<void> logoutFromUseCase() {
+  Future<void> logoutCall() {
     return repositoryAbs.logout();
   }
 }

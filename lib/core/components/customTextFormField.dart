@@ -39,6 +39,9 @@ class CustomTextFormField extends StatelessWidget {
     return Container(
       width: double.infinity, // العرض كله تلقائي
       child: TextFormField(
+        autocorrect: true,
+
+        cursorColor: AppColor.primarycolor,
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,

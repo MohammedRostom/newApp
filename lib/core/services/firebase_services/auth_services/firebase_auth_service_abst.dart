@@ -1,4 +1,5 @@
 import 'package:auth_feature_1_0/features/auth_feature/data/model/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class FirebaseAuthServiceAbst {
   Future<AuthUserModel> signUpWithEmail({
@@ -12,9 +13,9 @@ abstract class FirebaseAuthServiceAbst {
     required String password,
   });
 
-  Future<AuthUserModel> signInWithGoogle();
+  // Future<UserCredential> signInWithGoogle();
   Future<void> resetPassword(String email);
-  Future<void> sendEmailVerification(String email);
+  Future<void> sendEmailVerification();
 
   Future<void> signOut();
   // Future<void> deleteAccount();

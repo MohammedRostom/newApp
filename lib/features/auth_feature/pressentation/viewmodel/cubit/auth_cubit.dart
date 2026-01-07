@@ -9,8 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit({required this.connectionChecker, required this.getUserUseCase})
-    : super(AuthInitial());
+  AuthCubit({
+    required this.connectionChecker,
+    required this.getUserUseCase,
+    // required this.firebaseAuthServiceAbst,
+  }) : super(AuthInitial());
 
   final UserUseCase authUserUseCase = UserUseCase(
     repositoryAbs: gtit<RepositoryAbs>(),
@@ -18,6 +21,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   final GetUserUsecase getUserUseCase;
   final CheckConnection connectionChecker;
+  // final FirebaseAuthServiceAbst firebaseAuthServiceAbst;
 
   /// ================= LOGIN =================
   Future<void> loginUser(String email, String password) async {
@@ -31,10 +35,10 @@ class AuthCubit extends Cubit<AuthState> {
       }
 
       // 1️⃣ Login
-      final user = await authUserUseCase.loginFromUseCase(email, password);
+      final user = await authUserUseCase.loginCall(email, password);
 
       // 2️⃣ Get full profile from Firestore
-      final profile = await getUserUseCase.GetUserFromUseCase(
+      final profile = await getUserUseCase.GetUserCall(
         user.id,
         Constant.CollectionUsers,
       );
@@ -60,11 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
         return;
       }
 
-      final user = await authUserUseCase.registrationFromUseCase(
-        username,
-        email,
-        password,
-      );
+      final user = await authUserUseCase.regiterCall(username, email, password);
 
       emit(AuthDone(userEntity: user));
     } catch (e) {
@@ -77,11 +77,21 @@ class AuthCubit extends Cubit<AuthState> {
   /// ================= LOGOUT =================
   Future<void> logoutUser() async {
     emit(AuthLoading());
-    await authUserUseCase.logoutFromUseCase();
+    await authUserUseCase.logoutCall();
     emit(AuthLoggedOut());
   }
 
   // + SIgn with google
-  // + rest password
-  // + COnfirem email
+  Future<void> restPass(String email) async {
+    emit(AuthLoading());
+    await authUserUseCase.resetPasswordCall(email);
+    emit(AuthRestPass());
+  }
+
+  // a دي تشتغل لما تعمل لوجين جو يا معلم ف الهوم مثلا او ف الاعادادات
+  Future<void> confirmEmail() async {
+    emit(AuthLoading());
+    await authUserUseCase.sendEmailVerificationCall();
+    emit(AuthSendToConfirm());
+  }
 }

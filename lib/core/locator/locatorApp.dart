@@ -10,7 +10,6 @@ import 'package:auth_feature_1_0/features/auth_feature/data/datasource/remote/ge
 import 'package:auth_feature_1_0/features/auth_feature/data/datasource/remote/user_datasource.dart';
 import 'package:auth_feature_1_0/features/auth_feature/data/rebo_impl/getUser_rebo_impl.dart';
 import 'package:auth_feature_1_0/features/auth_feature/data/rebo_impl/user_rebo_impl.dart';
-import 'package:auth_feature_1_0/features/auth_feature/domain/usecases/user_usecase.dart';
 import 'package:auth_feature_1_0/features/auth_feature/pressentation/viewmodel/cubit/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -19,38 +18,40 @@ final gtit = GetIt.instance;
 // AUTH SETUP
 // -----------------------------------------------------------
 Future<void> setupAuthFeature() async {
-  // Abs , Impl
+  // -----------------------------------------------------------
+  // Abs , Impl Services
   gtit.registerLazySingleton<FirebaseAuthServiceAbst>(
     () => FirebaseAuthServiceImpl(firebaseStore: gtit()),
   );
   gtit.registerLazySingleton<FireStoreServiceAbst>(
     () => FireStoreServiceImpl(),
   );
-
-  // DataSource
-  // Depandency inversion
+  // -----------------------------------------------------------
+  //  Depandency inversion DataSource
   gtit.registerLazySingleton<RemoteUserDataSource>(
     () => RemoteUserDataSource(firebaseAuthServiceAbs: gtit()),
   );
   gtit.registerLazySingleton<GetUserDatasource>(
     () => GetUserDatasource(fireStoreService: gtit()),
   );
-
-  // Abs , Impl
+  // -----------------------------------------------------------
+  // Abs , Impl Repository
   gtit.registerLazySingleton<RepositoryAbs>(
     () => RepositoryImpl(remoteUserDataSource: gtit()),
   );
   gtit.registerLazySingleton<GetUserReboAps>(
     () => GetRepositoryImpl(remoteUserDataSource: gtit()),
   );
+  // -----------------------------------------------------------
+  // UseCases
   // gtit.registerLazySingleton<UserUseCase>(
   //   () => UserUseCase(repositoryAbs: gtit()),
   // );
-  // UseCases
+
   gtit.registerLazySingleton<GetUserUsecase>(
     () => GetUserUsecase(getUserReboAps: gtit()),
   );
-
+  // -----------------------------------------------------------
   // Cubits
   gtit.registerFactory<AuthCubit>(
     () => AuthCubit(getUserUseCase: gtit(), connectionChecker: gtit()),
@@ -59,9 +60,9 @@ Future<void> setupAuthFeature() async {
   await gtit.allReady();
 }
 
+// -----------------------------------------------------------
 //  init calling
 Future<void> setupFeaturesGetit() async {
   await setupAuthFeature();
-
-  print("✅ All registrations completed successfully");
+  print("✅ All setupAuthFeature registered successfully");
 }

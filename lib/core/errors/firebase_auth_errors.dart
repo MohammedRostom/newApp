@@ -8,6 +8,8 @@ class FirebaseAuthErrorMessages {
 
       case 'weak-password':
         return 'كلمة المرور ضعيفة';
+      case 'weak-password':
+        return 'كلمة المرور ضعيفة';
       default:
         return 'حدث خطأ غير متوقع، حاول مرة أخرى';
     }

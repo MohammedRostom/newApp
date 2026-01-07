@@ -292,7 +292,13 @@ class _LoginRedirect extends StatelessWidget {
           onTap: () => Navigator.pushNamed(context, loginRoute),
           child: Text(
             "Login",
-            style: TextStyle(fontSize: 14.sp, color: AppColor.primarycolor),
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.red,
+              decorationColor: AppColor.primarycolor,
+
+              decoration: TextDecoration.underline,
+            ),
           ),
         ),
       ],

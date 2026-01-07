@@ -16,14 +16,13 @@ final class AuthDone extends AuthState {
   AuthDone({this.userEntity});
 }
 
-// final class AuthInHome extends AuthState {
-//   final AuthUserEntity? userEntity;
-//   AuthInHome({this.userEntity});
-// }
-
 final class AuthError extends AuthState {
   final String errorMessage;
   AuthError({required this.errorMessage});
 }
+
+final class AuthRestPass extends AuthState {}
+
+final class AuthSendToConfirm extends AuthState {}
 
 final class AuthLoggedOut extends AuthState {}
