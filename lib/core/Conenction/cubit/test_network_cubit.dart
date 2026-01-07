@@ -7,9 +7,9 @@ import 'package:meta/meta.dart';
 part 'test_network_state.dart';
 
 class TestNetworkCubit extends Cubit<TestNetworkState> {
-  TestNetworkCubit() : super(TestNetworkInitial());
+  TestNetworkCubit({required this.checker}) : super(TestNetworkInitial());
 
-  final checker = gtit<CheckConnection>();
+  final CheckConnection checker;
 
   String status = 'اضغط عشان تشيك النت';
   Future<void> testConnection() async {

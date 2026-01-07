@@ -1,4 +1,5 @@
 import 'package:auth_feature_1_0/core/Conenction/cubit/test_network_cubit.dart';
+import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,7 @@ class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
   @override
   void initState() {
     super.initState();
-    cubit = TestNetworkCubit();
+    cubit = gtit<TestNetworkCubit>();
     //  بيعمل ريبلد بعد ما يتسعدي التايمر لاين عشان ميحصلش مشاكل مع الcontext
     SchedulerBinding.instance.addPostFrameCallback((_) {
       cubit.testConnection();
@@ -39,11 +40,15 @@ class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: cubit,
+    return BlocProvider(
+      create: (context) => cubit,
       child: BlocListener<TestNetworkCubit, TestNetworkState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is FailuerNetwork) {
+            showStatusSnackBar(state.mass);
+          } else if (state is DoneNetwork) {
+            showStatusSnackBar('انت متصل بالانترنت');
+          }
         },
         child: Scaffold(
           body: RefreshIndicator(

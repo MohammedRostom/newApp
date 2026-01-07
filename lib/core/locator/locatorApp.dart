@@ -1,4 +1,5 @@
 import 'package:auth_feature_1_0/core/Conenction/checKNet.dart';
+import 'package:auth_feature_1_0/core/Conenction/cubit/test_network_cubit.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/auth_services/firebase_auth_service_abst.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/auth_services/firebase_auth_service_impl.dart';
 import 'package:auth_feature_1_0/core/services/firebase_services/firestore_services/firebase_firestore_service_abst.dart';
@@ -55,6 +56,10 @@ Future<void> setupAuthFeature() async {
   // Cubits
   gtit.registerFactory<AuthCubit>(
     () => AuthCubit(getUserUseCase: gtit(), connectionChecker: gtit()),
+  );
+  // Network
+  gtit.registerFactory<TestNetworkCubit>(
+    () => TestNetworkCubit(checker: gtit()),
   );
   gtit.registerFactory<CheckConnection>(() => CheckConnection());
   await gtit.allReady();
