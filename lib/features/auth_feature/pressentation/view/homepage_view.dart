@@ -79,26 +79,3 @@
 //     );
 //   }
 // }
-
-import 'package:auth_feature_1_0/core/Conenction/NetworkCheckeRefrechBody.dart';
-import 'package:flutter/material.dart';
-
-class HomepageView extends StatelessWidget {
-  const HomepageView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return NetworkCheckerBody(
-      scaffold: Scaffold(
-        body: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('Item ItemItemItemItemItemItemItemItem $index'),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
