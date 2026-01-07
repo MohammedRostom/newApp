@@ -89,13 +89,15 @@ class HomepageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NetworkCheckerBody(
-      body: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Item ItemItemItemItemItemItemItemItem $index'),
-          );
-        },
+      scaffold: Scaffold(
+        body: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text('Item ItemItemItemItemItemItemItemItem $index'),
+            );
+          },
+        ),
       ),
     );
   }

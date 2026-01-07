@@ -6,9 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/scheduler.dart';
 
 class NetworkCheckerBody extends StatefulWidget {
-  final Widget body;
-  const NetworkCheckerBody({super.key, required this.body});
-
+  const NetworkCheckerBody({super.key, required this.scaffold});
+  final Widget scaffold;
   @override
   State<NetworkCheckerBody> createState() => _NetworkCheckScreenState();
 }
@@ -50,13 +49,11 @@ class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
             showStatusSnackBar('انت متصل بالانترنت');
           }
         },
-        child: Scaffold(
-          body: RefreshIndicator(
-            onRefresh: () async {
-              await cubit.testConnection();
-            },
-            child: Container(child: widget.body),
-          ),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await cubit.testConnection();
+          },
+          child: widget.scaffold,
         ),
       ),
     );
