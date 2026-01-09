@@ -1,33 +1,39 @@
 import 'package:auth_feature_1_0/core/Conenction/cubit/test_network_cubit.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
+import 'package:auth_feature_1_0/features/layout_feature/pressentation/viewmodel/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/scheduler.dart';
 
 class NetworkCheckerBody extends StatefulWidget {
-  const NetworkCheckerBody({super.key, required this.scaffold});
+  const NetworkCheckerBody({
+    super.key,
+    required this.scaffold,
+    required this.Url,
+  });
   final Widget scaffold;
+  final String Url;
+
   @override
   State<NetworkCheckerBody> createState() => _NetworkCheckScreenState();
 }
 
 class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
-  late TestNetworkCubit cubit;
+  // late TestNetworkCubit cubit;
 
   @override
   void initState() {
     super.initState();
-    cubit = gtit<TestNetworkCubit>();
-    //  بيعمل ريبلد بعد ما يتسعدي التايمر لاين عشان ميحصلش مشاكل مع الcontext
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      cubit.testConnection();
-    });
+    // cubit = gtit<TestNetworkCubit>();
+    // //  بيعمل ريبلد بعد ما يتسعدي التايمر لاين عشان ميحصلش مشاكل مع الcontext
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   cubit.testConnection();
+    // });
   }
 
   @override
   void dispose() {
-    cubit.close();
+    // cubit.close();
     super.dispose();
   }
 
@@ -40,21 +46,26 @@ class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => cubit,
-      child: BlocListener<TestNetworkCubit, TestNetworkState>(
+      create: (context) => gtit<TestNetworkCubit>(),
+      child: BlocConsumer<TestNetworkCubit, TestNetworkState>(
         listener: (context, state) {
           if (state is FailuerNetwork) {
             showStatusSnackBar(state.mass);
           } else if (state is DoneNetwork) {
-            showStatusSnackBar('انت متصل بالانترنت');
+            showStatusSnackBar("Data Loaded");
           }
         },
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await cubit.testConnection();
-          },
-          child: widget.scaffold,
-        ),
+
+        builder: (context, state) {
+          final cubit = context.read<TestNetworkCubit>();
+          return RefreshIndicator(
+            onRefresh: () async {
+              await cubit.testConnection();
+              context.read<ProductCubit>()..fetchProducts(widget.Url);
+            },
+            child: widget.scaffold,
+          );
+        },
       ),
     );
   }

@@ -9,6 +9,11 @@ class Constant {
   static final double spaceBetweenSections = 32.h;
   static fillContainerWidth(BuildContext context) =>
       MediaQuery.of(context).size.width;
+
+  // endPoint Or Paths
+  static final String productsPath = "products";
+  static final String getAllProductsUrl =
+      "https://fakestoreapi.com/$productsPath";
 }
 
 // -------------------------------------------------------------

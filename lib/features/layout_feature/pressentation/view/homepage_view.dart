@@ -81,23 +81,57 @@
 // }
 
 import 'package:auth_feature_1_0/core/Conenction/NetworkCheckeRefrechBody.dart';
+import 'package:auth_feature_1_0/core/Constant.dart';
+import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
+import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_entity.dart';
+import 'package:auth_feature_1_0/features/layout_feature/pressentation/viewmodel/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomepageView extends StatelessWidget {
   const HomepageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return NetworkCheckerBody(
-      scaffold: Scaffold(
-        body: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('Item ItemItemItemItemItemItemItemItem $index'),
-            );
-          },
-        ),
+    final args =
+        ModalRoute.of(context)!.settings.arguments
+            as AuthUserEntity; // dynamic type
+    return BlocProvider(
+      create: (context) => gtit<ProductCubit>(),
+      child: BlocBuilder<ProductCubit, ProductState>(
+        builder: (context, state) {
+          return NetworkCheckerBody(
+            Url: Constant.getAllProductsUrl,
+            scaffold: Scaffold(
+              appBar: AppBar(title: Text(args.username ?? "No Name")),
+              body: BlocBuilder<ProductCubit, ProductState>(
+                builder: (context, state) {
+                  final cubit = context.read<ProductCubit>();
+
+                  if (state is ProductsInitial) {
+                    cubit.fetchProducts(Constant.getAllProductsUrl);
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ProductsLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ProductsLoadedError) {
+                    return Center(child: Text(state.message));
+                  } else if (state is ProductsLoaded) {
+                    return ListView.builder(
+                      itemCount: state.products.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(state.products[index]!.title.toString()),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(child: Text('No Data'));
+                  }
+                },
+              ),
+            ),
+          );
+        },
       ),
     );
   }

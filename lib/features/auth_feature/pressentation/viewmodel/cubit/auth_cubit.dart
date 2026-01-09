@@ -96,7 +96,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   // visblity password
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   void togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
     emit(AuthTogglePasswordVisibility());

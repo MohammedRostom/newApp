@@ -15,7 +15,7 @@ class StartManger extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: AppViews.MapOfViewsRouters,
-        initialRoute: homePageRoute,
+        initialRoute: loginRoute,
       ),
     );
   }
