@@ -15,12 +15,14 @@ import 'package:auth_feature_1_0/features/auth_feature/data/rebo_impl/user_rebo_
 import 'package:auth_feature_1_0/features/auth_feature/pressentation/viewmodel/cubit/auth_cubit.dart';
 import 'package:auth_feature_1_0/features/layout_feature/Domain/rebo_abs/products_rebo_abs.dart';
 import 'package:auth_feature_1_0/features/layout_feature/Domain/usecases/Products_usecase.dart';
-import 'package:auth_feature_1_0/features/layout_feature/Domain/usecases/products_usecase.dart' hide ProductsUsecase;
+import 'package:auth_feature_1_0/features/layout_feature/Domain/usecases/products_usecase.dart'
+    hide ProductsUsecase;
 import 'package:auth_feature_1_0/features/layout_feature/data/datasource/remote/Products_datasource_abs.dart';
 import 'package:auth_feature_1_0/features/layout_feature/data/datasource/remote/Products_datasource_impl.dart';
 import 'package:auth_feature_1_0/features/layout_feature/data/rebo_impl/products_rebo_impl.dart';
 import 'package:auth_feature_1_0/features/layout_feature/pressentation/viewmodel/cubit/product_cubit.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final gtit = GetIt.instance;
 // -----------------------------------------------------------
@@ -28,7 +30,13 @@ final gtit = GetIt.instance;
 // -----------------------------------------------------------
 Future<void> setupAuthFeature() async {
   // -----------------------------------------------------------
+
+  // Cache عشان معنوش كنسترتور
+  final sharedPreferences = await SharedPreferences.getInstance();
+  gtit.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+
   // Abs , Impl Services
+
   gtit.registerLazySingleton<FirebaseAuthServiceAbst>(
     () => FirebaseAuthServiceImpl(firebaseStore: gtit()),
   );
@@ -87,8 +95,9 @@ Future<void> setupProductsFeature() async {
   gtit.registerLazySingleton<ProductsUsecase>(
     () => ProductsUsecase(productsReboAbs: gtit()),
   );
+  // gtit.registerFactory<CheckConnection>(() => CheckConnection());
   gtit.registerFactory<ProductCubit>(
-    () => ProductCubit(productsUsecase: gtit()),
+    () => ProductCubit(productsUsecase: gtit(), connectionChecker: gtit()),
   );
   await gtit.allReady();
 }

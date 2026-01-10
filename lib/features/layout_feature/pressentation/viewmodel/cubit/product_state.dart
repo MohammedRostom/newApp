@@ -5,6 +5,17 @@ sealed class ProductState {}
 
 final class ProductsInitial extends ProductState {}
 
+final class Changeindex extends ProductState {
+  final int index;
+
+  Changeindex({required this.index});
+}
+
+final class CHeckNet extends ProductState {
+  final bool isHasInternet;
+  CHeckNet({required this.isHasInternet});
+}
+
 final class ProductsLoading extends ProductState {}
 
 final class ProductsLoaded extends ProductState {

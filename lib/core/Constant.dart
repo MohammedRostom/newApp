@@ -1,3 +1,7 @@
+import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/Pag2.dart';
+import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/Pag3.dart';
+import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/Pag4.dart';
+import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/homepage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,6 +18,18 @@ class Constant {
   static final String productsPath = "products";
   static final String getAllProductsUrl =
       "https://fakestoreapi.com/$productsPath";
+  static final List<Map<String, dynamic>> Taps = [
+    {"Icon": Icon(Icons.home_max_outlined), "label": "Home"},
+    {"Icon": Icon(Icons.card_giftcard), "label": "Card"},
+    {"Icon": Icon(Icons.favorite), "label": "Favorite"},
+    {"Icon": Icon(Icons.person), "label": "Profile"},
+  ];
+  static final List<Widget> layoutPages = [
+    HomepageView(),
+    Pag2(),
+    Pag3(),
+    Pag4(),
+  ];
 }
 
 // -------------------------------------------------------------

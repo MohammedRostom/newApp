@@ -19,21 +19,17 @@ class NetworkCheckerBody extends StatefulWidget {
 }
 
 class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
-  // late TestNetworkCubit cubit;
+  late TestNetworkCubit cubit;
 
   @override
   void initState() {
     super.initState();
-    // cubit = gtit<TestNetworkCubit>();
-    // //  بيعمل ريبلد بعد ما يتسعدي التايمر لاين عشان ميحصلش مشاكل مع الcontext
-    // SchedulerBinding.instance.addPostFrameCallback((_) {
-    //   cubit.testConnection();
-    // });
+    cubit = gtit<TestNetworkCubit>();
   }
 
   @override
   void dispose() {
-    // cubit.close();
+    cubit.close();
     super.dispose();
   }
 
@@ -46,22 +42,22 @@ class _NetworkCheckScreenState extends State<NetworkCheckerBody> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => gtit<TestNetworkCubit>(),
-      child: BlocConsumer<TestNetworkCubit, TestNetworkState>(
+      create: (context) => gtit<ProductCubit>(),
+      child: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
-          if (state is FailuerNetwork) {
-            showStatusSnackBar(state.mass);
-          } else if (state is DoneNetwork) {
-            showStatusSnackBar("Data Loaded");
-          }
+          // if (state is FailuerNetwork) {
+          //   showStatusSnackBar(state.mass);
+          // } else if (state is DoneNetwork) {
+          //   showStatusSnackBar("Data Loaded");
+          // }
         },
 
         builder: (context, state) {
-          final cubit = context.read<TestNetworkCubit>();
+          // final cubit = context.read<TestNetworkCubit>();
           return RefreshIndicator(
             onRefresh: () async {
-              await cubit.testConnection();
-              context.read<ProductCubit>()..fetchProducts(widget.Url);
+              // await cubit.testConnection();
+              context.read<ProductCubit>().fetchProducts(widget.Url);
             },
             child: widget.scaffold,
           );

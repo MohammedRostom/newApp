@@ -69,11 +69,7 @@ class _LoginViewState extends State<LoginView> {
             );
 
             Future.delayed(Duration(seconds: 2), () {
-              Navigator.pushReplacementNamed(
-                context,
-                homePageRoute,
-                arguments: state.userEntity,
-              );
+              Navigator.pushReplacementNamed(context, layoutRoute);
             });
           }
           if (state is AuthError) {

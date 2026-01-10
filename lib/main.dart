@@ -1,4 +1,5 @@
 import 'package:auth_feature_1_0/core/Constant.dart';
+import 'package:auth_feature_1_0/core/cache/cache.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:auth_feature_1_0/core/services/api_services/abi_services.dart';
 import 'package:auth_feature_1_0/features/layout_feature/Domain/usecases/products_usecase.dart';
@@ -13,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // لازم قبل أي async
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupFeaturesGetit();
+  await PreferencesService.init();
   runApp(const MyApp());
 }
 
