@@ -19,8 +19,8 @@ Future<void> setupServicesCall() async {
 class Constant {
   static final CollectionUsers = "users";
   static final mragin_screen_H = 16.w;
-  static final double spaceHightBetweenElements = 16.h;
-  static final double spaceWidthBetweenElements = 16.w;
+  static final double spaceHightBetweenElements = 17.h;
+  static final double spaceWidthBetweenElements = 17.w;
   static final double spaceBetweenSections = 32.h;
   static fillContainerWidth(BuildContext context) =>
       MediaQuery.of(context).size.width;
