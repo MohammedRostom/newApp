@@ -11,10 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // لازم قبل أي async
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await setupFeaturesGetit();
-  await PreferencesService.init();
+  await setupServicesCall();
   runApp(const MyApp());
 }
 

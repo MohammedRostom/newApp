@@ -71,7 +71,11 @@ Future<void> setupAuthFeature() async {
   // -----------------------------------------------------------
   // Cubits
   gtit.registerFactory<AuthCubit>(
-    () => AuthCubit(getUserUseCase: gtit(), connectionChecker: gtit()),
+    () => AuthCubit(
+      getUserUseCase: gtit(),
+      connectionChecker: gtit(),
+      cache: gtit(),
+    ),
   );
   // Network
   gtit.registerFactory<TestNetworkCubit>(

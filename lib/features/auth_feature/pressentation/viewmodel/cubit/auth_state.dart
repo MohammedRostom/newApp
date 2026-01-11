@@ -16,6 +16,16 @@ final class AuthDone extends AuthState {
   AuthDone({this.userEntity});
 }
 
+final class CacheUserStored extends AuthState {
+  // final String id, username, email;
+
+  // CacheUserStored({
+  //   required this.id,
+  //   required this.username,
+  //   required this.email,
+  // });
+}
+
 final class AuthError extends AuthState {
   final String errorMessage;
   AuthError({required this.errorMessage});

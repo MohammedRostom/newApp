@@ -6,11 +6,13 @@ import 'package:auth_feature_1_0/features/auth_feature/Domain/rebo_abs/user_rebo
 import 'package:auth_feature_1_0/features/auth_feature/Domain/usecases/getUser_usecase.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/usecases/user_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit({
     required this.connectionChecker,
+    required this.cache,
     required this.getUserUseCase,
     // required this.firebaseAuthServiceAbst,
   }) : super(AuthInitial());
@@ -21,6 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   final GetUserUsecase getUserUseCase;
   final CheckConnection connectionChecker;
+  final SharedPreferences cache;
   // final FirebaseAuthServiceAbst firebaseAuthServiceAbst;
 
   /// ================= LOGIN =================
@@ -43,7 +46,13 @@ class AuthCubit extends Cubit<AuthState> {
         Constant.CollectionUsers,
       );
 
-      emit(AuthDone(userEntity: profile ?? user));
+      final currntUser = profile ?? user;
+      emit(AuthDone(userEntity: currntUser));
+      cache.setString("id", currntUser.id);
+      cache.setString("username", currntUser.username!);
+      cache.setString("email", currntUser.email);
+
+      emit(CacheUserStored());
     } catch (e) {
       emit(AuthError(errorMessage: e.toString()));
     }

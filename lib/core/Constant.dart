@@ -1,9 +1,20 @@
+import 'package:auth_feature_1_0/core/cache/cache.dart';
+import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/Pag2.dart';
 import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/Pag3.dart';
 import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/Pag4.dart';
 import 'package:auth_feature_1_0/features/layout_feature/pressentation/view/homepage_view.dart';
+import 'package:auth_feature_1_0/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+Future<void> setupServicesCall() async {
+  WidgetsFlutterBinding.ensureInitialized(); // لازم قبل أي async
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await setupFeaturesGetit();
+  await PreferencesService.init();
+}
 
 class Constant {
   static final CollectionUsers = "users";

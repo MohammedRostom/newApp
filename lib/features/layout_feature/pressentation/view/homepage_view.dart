@@ -84,10 +84,12 @@ import 'package:auth_feature_1_0/core/Conenction/NetworkCheckeRefrechBody.dart';
 import 'package:auth_feature_1_0/core/Constant.dart';
 import 'package:auth_feature_1_0/core/locator/locatorApp.dart';
 import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_entity.dart';
+import 'package:auth_feature_1_0/features/auth_feature/pressentation/viewmodel/cubit/auth_cubit.dart';
 import 'package:auth_feature_1_0/features/layout_feature/pressentation/viewmodel/cubit/product_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomepageView extends StatefulWidget {
   const HomepageView({super.key});
@@ -97,68 +99,43 @@ class HomepageView extends StatefulWidget {
 }
 
 class _HomepageViewState extends State<HomepageView> {
-  late ProductCubit cubit;
+  // late ProductCubit cubit;
 
-  @override
-  void initState() {
-    super.initState();
-    cubit = gtit<ProductCubit>();
-    cubit.fetchProducts(Constant.getAllProductsUrl);
-  }
-
-  @override
-  void dispose() {
-    cubit.close();
-    super.dispose();
-  }
+  // @override
+  // // void initState() {
+  // //   super.initState();
+  // //   cubit = gtit<ProductCubit>();
+  // //   cubit.fetchProducts(Constant.getAllProductsUrl);
+  // // }
+  // @override
+  // void dispose() {
+  //   // cubit.close();
+  //   super.dispose();
+  // }
 
   Widget build(BuildContext context) {
-    // final args =
-    // ModalRoute.of(context)!.settings.arguments
-    //     as AuthUserEntity; // dynamic type
     return BlocProvider(
       create: (context) => gtit<ProductCubit>(),
       child: NetworkCheckerBody(
         Url: Constant.getAllProductsUrl,
         scaffold: Scaffold(
           appBar: AppBar(
-            title: Text("args.username!"),
+            title: Text(
+              "${gtit<SharedPreferences>().getString("id") ?? "id "}",
+            ),
+
             actions: [IconButton(onPressed: null, icon: Icon(Icons.person))],
           ),
           body: BlocConsumer<ProductCubit, ProductState>(
-            listener: (context, state) {
-              // if (state is ProductsInitial) {
-              //   Center(child: CircularProgressIndicator());
-              // }
-              // if (state is CHeckNet && !state.isHasInternet) {
-              //   ScaffoldMessenger.of(context).showSnackBar(
-              //     SnackBar(
-              //       content: Row(
-              //         children: [
-              //           Icon(Icons.wifi_off_outlined, color: Colors.white),
-              //           SizedBox(width: 4.w),
-              //           Text("No internet connection"),
-              //         ],
-              //       ),
-              //       duration: Duration(seconds: 4),
-              //       backgroundColor: Colors.red,
-              //       action: SnackBarAction(
-              //         textColor: Colors.white,
-              //         label: "Try Again",
-              //         onPressed: () => gtit<ProductCubit>().fetchProducts(
-              //           Constant.getAllProductsUrl,
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // }
-            },
+            listener: (context, state) {},
             builder: (context, state) {
               final cubit = context.read<ProductCubit>();
 
               if (state is CHeckNet && !state.isHasInternet) {
                 return Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text("💔 No internet "),
                       TextButton(
