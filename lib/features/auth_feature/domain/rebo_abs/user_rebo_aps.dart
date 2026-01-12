@@ -2,11 +2,13 @@ import 'package:auth_feature_1_0/features/auth_feature/Domain/entitity/user_enti
 
 abstract class RepositoryAbs {
   Future<AuthUserEntity> login(String email, String password);
-  Future<AuthUserEntity> registration(
+  Future<AuthUserEntity?> registration(
     String username,
     String email,
     String password,
   );
-
+  // Future<AuthUserEntity> signInWithGoogle();
+  Future<void> resetPassword(String email);
+  Future<void> sendEmailVerification();
   Future<void> logout();
 }

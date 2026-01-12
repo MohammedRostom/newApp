@@ -1,18 +1,15 @@
 class AuthUserEntity {
   final String _id;
+  String? _username;
   final String _email;
-  final String _username;
 
-  AuthUserEntity({
-    required String id,
-    required String email,
-    required String username,
-  }) : _id = id,
-       _email = email,
-       _username = username;
+  AuthUserEntity({required String id, String? username, required String email})
+    : _id = id,
+      _username = username,
+      _email = email;
 
   String get id => _id;
   String get email => _email;
-  String get username => _username;
+  String? get username => _username ?? _email;
   //applay encapsualtion Done
 }
